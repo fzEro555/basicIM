@@ -31,7 +31,7 @@ if __name__ == "__main__":
                         message_length = struct.unpack('>I', message_length)[0]
                         data_length = 0
                         while data_length < message_length:
-                            chunk = s.recv(8192).decode()
+                            chunk = s.recv(8192).decode('ISO-8859-1')
                             if not chunk:
                                 data = None
                                 break
@@ -39,7 +39,7 @@ if __name__ == "__main__":
                                 data += chunk
                                 data_length += len(chunk)
                         instant_message = instantmessage_pb2.InstantMessage()
-                        instant_message.ParseFromString(data.encode())
+                        instant_message.ParseFromString(data.encode('ISO-8859-1'))
                         print("%s: %s\n" % (instant_message.nickname, instant_message.msg), flush=True)
                 # Client input from keyboard
                 else:
